@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Empleados</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Lista de Empleados</h2>
+        
+        <!-- Botones para generar los reportes -->
+        <div class="btn-group mb-3" role="group">
+            <a href="/empleados/reporte/pdf" class="btn btn-info">Generar Reporte PDF</a>
+            <a href="/empleados/reporte/excel" class="btn btn-info">Generar Reporte Excel</a>
+        </div>
+        
+        <!-- Botón para agregar un nuevo empleado -->
+        <a href="/empleados/nuevo" class="btn btn-success mb-3">Nuevo Empleado</a>
+        
+        <!-- Tabla de empleados -->
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>DNI</th>
+                    <th>Nombre</th>
+                    <th>Teléfono</th>
+                    <th>Estado</th>
+                    <th>Usuario</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="empleado : ${empleados}">
+                    <td th:text="${empleado.dni}"></td>
+                    <td th:text="${empleado.nom}"></td>
+                    <td th:text="${empleado.tel}"></td>
+                    <td th:text="${empleado.estado}"></td>
+                    <td th:text="${empleado.user}"></td>
+                    <td>
+                        <a th:href="@{/empleados/editar/{id}(id=${empleado.id})}" class="btn btn-warning">Editar</a>
+                        <a th:href="@{/empleados/eliminar/{id}(id=${empleado.id})}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este empleado?')">Eliminar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
